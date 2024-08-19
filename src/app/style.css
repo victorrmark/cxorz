@@ -1,0 +1,38 @@
+.box {
+  background-image: url("../../public/login-art.jpg");
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+form{
+  width: 100%;
+}
+
+.sign-up {
+  background-image: url("../../public/signup.jpg");
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+}
+
+.button {
+  background-color: #006bb2;
+  color: white;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+}
