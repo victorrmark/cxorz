@@ -14,6 +14,7 @@ export default function LinkSlug({
 }) {
   const [urlData, setUrlData] = useState<UrlData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // const [locationData, setLocationData] = useState<any | null>(null);
 
   const supabase = createClient();
   const { shortPath } = params;
@@ -22,12 +23,24 @@ export default function LinkSlug({
     window.location.href = url;
   };
 
+  const fetchUserLocation = async () => {
+    try {
+      const response = await fetch("https://ipapi.co/json/");
+      const location = await response.json();
+      // setLocationData(location);
+      return location;
+    } catch (err) {
+      return null;
+    }
+  };
+
+
   useEffect(() => {
     const fetchUrlDetails = async () => {
       try {
         const { data, error } = await supabase
           .from("urls")
-          .select("original_url, visit_count")
+          .select("original_url, visit_count, last_location")
           .eq("short_path", shortPath)
           .single();
 
@@ -36,12 +49,17 @@ export default function LinkSlug({
           return;
         }
 
-        const { original_url, visit_count } = data;
+        const { original_url, visit_count, last_location } = data;
         setUrlData(data);
+        const location = await fetchUserLocation();
+        // console.log("User Location:", location); 
 
         const { error: updateError } = await supabase
           .from("urls")
-          .update({ visit_count: visit_count + 1 })
+          .update({ 
+            visit_count: visit_count + 1,
+            last_location: location.city
+          })
           .eq("short_path", shortPath);
 
         if (updateError) {
