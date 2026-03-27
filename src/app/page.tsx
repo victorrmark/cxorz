@@ -8,7 +8,7 @@ export default function Redirect(){
             window.location.href = url
         }
 
-        redirectTo('https://cxors.vercel.app/dashboard/home')
+        redirectTo('https://cxors.vercel.app/home')
     })
     // return null
     return null
